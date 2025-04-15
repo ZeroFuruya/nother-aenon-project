@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart's Truth</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Georgia', serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #fde2e4 0%, #f8edeb 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .floating-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            color: rgba(220, 100, 120, 0.4);
+            font-size: 2rem;
+            animation: float 10s linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 3rem;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 15px 35px rgba(220, 100, 120, 0.2);
+            text-align: center;
+            z-index: 2;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            z-index: -1;
+            background: linear-gradient(45deg, #ff758f, #ff7eb3, #ff758f);
+            border-radius: 25px;
+            transform: scale(0.98);
+            transition: all 0.5s ease;
+        }
+
+        .card:hover::before {
+            transform: scale(1);
+        }
+
+        h1 {
+            color: #d23669;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .button-container {
+            margin: 2rem 0;
+        }
+
+        button {
+            background: linear-gradient(45deg, #ff758f, #ff7eb3);
+            border: none;
+            color: white;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 117, 143, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 117, 143, 0.6);
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+
+        button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.5s ease-out;
+        }
+
+        button:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .poem-container {
+            display: none;
+            animation: fadeIn 1.5s ease;
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: rgba(255, 245, 245, 0.8);
+            border-radius: 10px;
+            border-left: 4px solid #ff758f;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .poem {
+            font-style: italic;
+            line-height: 1.8;
+            color: #333;
+            white-space: pre-line;
+        }
+
+        .edit-button {
+            background: rgba(255, 117, 143, 0.3);
+            border: 1px solid #ff758f;
+            color: #d23669;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            display: none;
+        }
+
+        .edit-button:hover {
+            background: rgba(255, 117, 143, 0.5);
+        }
+
+        textarea {
+            width: 100%;
+            margin-top: 1rem;
+            padding: 1rem;
+            border: 1px solid #ffd1dc;
+            border-radius: 10px;
+            display: none;
+            height: 150px;
+            font-family: 'Georgia', serif;
+            resize: vertical;
+        }
+
+        .save-button {
+            display: none;
+            background: #ff758f;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-hearts" id="heartContainer"></div>
+    
+    <div class="card">
+        <h1>From My Heart to Yours</h1>
+        
+        <div class="button-container">
+            <button id="revealButton">Do you wish to know my heart's truth</button>
+        </div>
+        
+        <div class="poem-container" id="poemContainer">
+            <p class="poem" id="poemText">Roses are red,
+Violets are blue,
+[Your beautiful poem will go here]
+Forever true.</p>
+            
+            <button class="edit-button" id="editButton">Edit Poem</button>
+            <textarea id="poemEditor"></textarea>
+            <button class="edit-button save-button" id="saveButton">Save Poem</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Creating floating hearts in the background
+            createFloatingHearts();
+            
+            // Button click sequence handling
+            const revealButton = document.getElementById('revealButton');
+            const poemContainer = document.getElementById('poemContainer');
+            const poemText = document.getElementById('poemText');
+            const editButton = document.getElementById('editButton');
+            const poemEditor = document.getElementById('poemEditor');
+            const saveButton = document.getElementById('saveButton');
+            
+            let clickCount = 0;
+            
+            revealButton.addEventListener('click', function() {
+                clickCount++;
+                
+                switch(clickCount) {
+                    case 1:
+                        revealButton.textContent = "Are you certain";
+                        animateButton();
+                        break;
+                    case 2:
+                        revealButton.textContent = "No turning back";
+                        animateButton();
+                        break;
+                    case 3:
+                        revealPoem();
+                        break;
+                }
+            });
+            
+            function animateButton() {
+                revealButton.classList.add('clicked');
+                setTimeout(function() {
+                    revealButton.classList.remove('clicked');
+                }, 300);
+            }
+            
+            function revealPoem() {
+                revealButton.style.display = 'none';
+                poemContainer.style.display = 'block';
+                createMoreHearts();
+            }
+            
+            // Edit poem functionality
+            editButton.addEventListener('click', function() {
+                poemEditor.value = poemText.textContent;
+                poemEditor.style.display = 'block';
+                saveButton.style.display = 'inline-block';
+                poemText.style.display = 'none';
+                editButton.style.display = 'none';
+            });
+            
+            saveButton.addEventListener('click', function() {
+                poemText.textContent = poemEditor.value;
+                poemEditor.style.display = 'none';
+                saveButton.style.display = 'none';
+                poemText.style.display = 'block';
+                editButton.style.display = 'inline-block';
+            });
+            
+            // Create floating hearts in the background
+            function createFloatingHearts() {
+                const heartContainer = document.getElementById('heartContainer');
+                const heartSymbols = ['❤', '💕', '💗', '💓', '💘'];
+                
+                for (let i = 0; i < 20; i++) {
+                    const heart = document.createElement('div');
+                    heart.classList.add('heart');
+                    heart.innerHTML = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.opacity = Math.random() * 0.7;
+                    heart.style.fontSize = Math.random() * 1.5 + 1 + 'rem';
+                    
+                    // Random animation duration
+                    const duration = 15 + Math.random() * 15;
+                    heart.style.animation = `float ${duration}s linear infinite`;
+                    
+                    // Random start position in the animation
+                    heart.style.animationDelay = -Math.random() * duration + 's';
+                    
+                    heartContainer.appendChild(heart);
+                }
+            }
+            
+            function createMoreHearts() {
+                const heartContainer = document.getElementById('heartContainer');
+                const heartSymbols = ['❤', '💕', '💗', '💓', '💘'];
+                
+                for (let i = 0; i < 15; i++) {
+                    const heart = document.createElement('div');
+                    heart.classList.add('heart');
+                    heart.innerHTML = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.opacity = Math.random() * 0.7;
+                    heart.style.fontSize = Math.random() * 2 + 1 + 'rem';
+                    
+                    // Random animation duration
+                    const duration = 10 + Math.random() * 10;
+                    heart.style.animation = `float ${duration}s linear infinite`;
+                    
+                    // Random start position in the animation
+                    heart.style.animationDelay = -Math.random() * duration + 's';
+                    
+                    heartContainer.appendChild(heart);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
