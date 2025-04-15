@@ -4,25 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Heart's Truth</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Montserrat:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Georgia', serif;
         }
 
         body {
-            background: linear-gradient(135deg, #fde2e4 0%, #f8edeb 100%);
+            background: linear-gradient(135deg, #e0f7ff 0%, #f5e6ff 50%, #ffe6f2 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
             position: relative;
+            font-family: 'Montserrat', sans-serif;
         }
 
-        .floating-hearts {
+        .floating-elements {
             position: absolute;
             width: 100%;
             height: 100%;
@@ -32,9 +35,35 @@
 
         .heart {
             position: absolute;
-            color: rgba(220, 100, 120, 0.4);
+            color: rgba(218, 112, 214, 0.4);
             font-size: 2rem;
             animation: float 10s linear infinite;
+        }
+
+        .flower {
+            position: absolute;
+            font-size: 1.5rem;
+            animation: spin-float 15s linear infinite;
+        }
+
+        .sparkle {
+            position: absolute;
+            color: rgba(135, 206, 250, 0.7);
+            font-size: 1rem;
+            animation: twinkle 8s ease-in-out infinite;
+        }
+
+        .butterfly {
+            position: absolute;
+            font-size: 1.3rem;
+            animation: butterfly-float 18s ease-in-out infinite;
+        }
+
+        .cloud {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.8rem;
+            animation: cloud-float 30s linear infinite;
         }
 
         @keyframes float {
@@ -43,10 +72,10 @@
                 opacity: 0;
             }
             10% {
-                opacity: 0.8;
+                opacity: 0.6;
             }
             90% {
-                opacity: 0.8;
+                opacity: 0.6;
             }
             100% {
                 transform: translateY(-100px) rotate(360deg);
@@ -54,18 +83,89 @@
             }
         }
 
+        @keyframes spin-float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.3;
+                transform: scale(0.8);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+
+        @keyframes butterfly-float {
+            0% {
+                transform: translateX(-50px) translateY(100vh) rotate(5deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            25% {
+                transform: translateX(50px) translateY(75vh) rotate(-5deg);
+            }
+            50% {
+                transform: translateX(-30px) translateY(50vh) rotate(8deg);
+            }
+            75% {
+                transform: translateX(40px) translateY(25vh) rotate(-8deg);
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateX(-20px) translateY(-50px) rotate(5deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes cloud-float {
+            0% {
+                transform: translateX(-100px);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateX(calc(100vw + 100px));
+                opacity: 0;
+            }
+        }
+
         .card {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 20px;
-            padding: 3rem;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 30px;
+            padding: 2rem 1.8rem;
             width: 90%;
-            max-width: 500px;
-            box-shadow: 0 15px 35px rgba(220, 100, 120, 0.2);
+            max-width: 400px;
+            box-shadow: 0 15px 35px rgba(185, 143, 255, 0.25), 0 5px 15px rgba(255, 164, 213, 0.2);
             text-align: center;
             z-index: 2;
             position: relative;
             overflow: hidden;
-            transition: all 0.5s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .card::before {
@@ -76,160 +176,319 @@
             right: -5px;
             bottom: -5px;
             z-index: -1;
-            background: linear-gradient(45deg, #ff758f, #ff7eb3, #ff758f);
-            border-radius: 25px;
-            transform: scale(0.98);
-            transition: all 0.5s ease;
+            background: linear-gradient(45deg, #b8c0ff, #ffc8dd, #a2d2ff);
+            border-radius: 35px;
+            transform: scale(0.99);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0.8;
         }
 
         .card:hover::before {
             transform: scale(1);
+            opacity: 1;
+        }
+
+        .card-inner {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            padding: 1.8rem;
+            box-shadow: inset 0 0 20px rgba(185, 143, 255, 0.2);
+            position: relative;
+        }
+
+        .card-inner::before, .card-inner::after {
+            content: "❤";
+            font-size: 1.2rem;
+            color: rgba(255, 164, 213, 0.7);
+            position: absolute;
+        }
+
+        .card-inner::before {
+            top: 1rem;
+            left: 1rem;
+        }
+
+        .card-inner::after {
+            bottom: 1rem;
+            right: 1rem;
+        }
+
+        .corner-decoration {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            color: rgba(185, 143, 255, 0.5);
+            font-size: 2rem;
+        }
+
+        .top-left {
+            top: 0.5rem;
+            left: 0.5rem;
+        }
+
+        .top-right {
+            top: 0.5rem;
+            right: 0.5rem;
+            transform: rotate(90deg);
+        }
+
+        .bottom-left {
+            bottom: 0.5rem;
+            left: 0.5rem;
+            transform: rotate(270deg);
+        }
+
+        .bottom-right {
+            bottom: 0.5rem;
+            right: 0.5rem;
+            transform: rotate(180deg);
         }
 
         h1 {
-            color: #d23669;
-            margin-bottom: 2rem;
-            font-size: 2rem;
+            color: #9376e0;
+            margin-bottom: 1.5rem;
+            font-size: 2.2rem;
+            font-weight: 600;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            font-family: 'Dancing Script', cursive;
+            letter-spacing: 0.5px;
+        }
+
+        .message {
+            font-size: 1.2rem;
+            color: #8a5eff;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            font-weight: 500;
+            font-family: 'Playfair Display', serif;
         }
 
         .button-container {
-            margin: 2rem 0;
+            margin: 1.8rem 0;
+            display: flex;
+            justify-content: center;
         }
 
-        button {
-            background: linear-gradient(45deg, #ff758f, #ff7eb3);
-            border: none;
-            color: white;
-            padding: 1rem 2rem;
-            font-size: 1.2rem;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(255, 117, 143, 0.4);
+        .heart-button {
             position: relative;
-            overflow: hidden;
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(45deg, #a2d2ff, #bde0fe, #ffc8dd);
+            transform: rotate(45deg);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(185, 143, 255, 0.4);
+            transition: all 0.3s ease;
         }
 
-        button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(255, 117, 143, 0.6);
-        }
-
-        button:active {
-            transform: translateY(1px);
-        }
-
-        button::after {
+        .heart-button::before,
+        .heart-button::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.2);
-            transform: scaleX(0);
-            transform-origin: right;
-            transition: transform 0.5s ease-out;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #a2d2ff, #bde0fe, #ffc8dd);
         }
 
-        button:hover::after {
-            transform: scaleX(1);
-            transform-origin: left;
+        .heart-button::before {
+            top: -45px;
+            left: 0;
+        }
+
+        .heart-button::after {
+            top: 0;
+            left: -45px;
+        }
+
+        .heart-button:hover {
+            transform: rotate(45deg) scale(1.05);
+            box-shadow: 0 10px 25px rgba(185, 143, 255, 0.6);
+        }
+
+        .heart-button:active {
+            transform: rotate(45deg) scale(0.98);
+        }
+
+        .heart-button-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            width: 100%;
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 600;
+            z-index: 2;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+            font-family: 'Dancing Script', cursive;
+            letter-spacing: 1px;
         }
 
         .poem-container {
             display: none;
             animation: fadeIn 1.5s ease;
             margin-top: 1.5rem;
-            padding: 1rem;
-            background: rgba(255, 245, 245, 0.8);
-            border-radius: 10px;
-            border-left: 4px solid #ff758f;
+            padding: 1.5rem;
+            background: rgba(255, 245, 255, 0.9);
+            border-radius: 18px;
+            border-left: 4px solid #ffc8dd;
+            border-right: 4px solid #a2d2ff;
+            position: relative;
+        }
+
+        .poem-container::before, .poem-container::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 10px;
+            left: 0;
+            background: linear-gradient(to right, #ffc8dd, #a2d2ff);
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(185, 143, 255, 0.2);
+        }
+
+        .poem-container::before {
+            top: -2px;
+        }
+
+        .poem-container::after {
+            bottom: -2px;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         .poem {
             font-style: italic;
-            line-height: 1.8;
-            color: #333;
+            line-height: 1.9;
+            color: #6c567b;
             white-space: pre-line;
+            font-size: 1.2rem;
+            font-family: 'Playfair Display', serif;
+            position: relative;
+            padding: 0 1rem;
         }
 
-        .edit-button {
-            background: rgba(255, 117, 143, 0.3);
-            border: 1px solid #ff758f;
-            color: #d23669;
-            padding: 0.5rem 1rem;
-            font-size: 0.9rem;
-            margin-top: 1rem;
-            cursor: pointer;
-            border-radius: 20px;
-            transition: all 0.3s ease;
-            display: none;
+        .poem::before, .poem::after {
+            content: '"';
+            font-size: 2.5rem;
+            color: rgba(185, 143, 255, 0.3);
+            position: absolute;
         }
 
-        .edit-button:hover {
-            background: rgba(255, 117, 143, 0.5);
+        .poem::before {
+            top: -1.2rem;
+            left: -0.5rem;
+        }
+
+        .poem::after {
+            bottom: -2.5rem;
+            right: -0.5rem;
         }
 
         textarea {
             width: 100%;
             margin-top: 1rem;
             padding: 1rem;
-            border: 1px solid #ffd1dc;
-            border-radius: 10px;
+            border: 1px solid #bde0fe;
+            border-radius: 15px;
             display: none;
             height: 150px;
-            font-family: 'Georgia', serif;
+            font-family: 'Playfair Display', serif;
             resize: vertical;
+            font-size: 1.1rem;
+            color: #6c567b;
         }
 
-        .save-button {
+        .edit-button, .save-button {
             display: none;
-            background: #ff758f;
-            margin-top: 0.5rem;
+        }
+
+        /* Pulse animation for the card */
+        @keyframes subtle-pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.01);
+            }
+        }
+
+        .pulse-animation {
+            animation: subtle-pulse 4s infinite ease-in-out;
+        }
+
+        /* Ribbon decoration */
+        .ribbon {
+            position: absolute;
+            font-size: 1.8rem;
+            color: rgba(255, 164, 213, 0.7);
+        }
+
+        .ribbon-top {
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .ribbon-bottom {
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
         }
     </style>
 </head>
 <body>
-    <div class="floating-hearts" id="heartContainer"></div>
+    <div class="floating-elements" id="elementsContainer"></div>
     
-    <div class="card">
-        <h1>From My Heart to Yours</h1>
+    <div class="card pulse-animation">
+        <div class="corner-decoration top-left">✿</div>
+        <div class="corner-decoration top-right">✿</div>
+        <div class="corner-decoration bottom-left">✿</div>
+        <div class="corner-decoration bottom-right">✿</div>
+        <div class="ribbon ribbon-top">✧✧✧</div>
+        <div class="ribbon ribbon-bottom">✧✧✧</div>
         
-        <div class="button-container">
-            <button id="revealButton">Do you wish to know my heart's truth?, click the button and see...</button>
-        </div>
-        
-        <div class="poem-container" id="poemContainer">
-            <p class="poem" id="poemText">Roses are red,
+        <div class="card-inner">
+            <h1>From My Heart to Yours</h1>
+            
+            <p class="message" id="currentMessage">Do you wish to know my heart's truth?</p>
+            
+            <div class="button-container">
+                <button class="heart-button" id="revealButton">
+                    <span class="heart-button-content">Click</span>
+                </button>
+            </div>
+            
+            <div class="poem-container" id="poemContainer">
+                <p class="poem" id="poemText">Roses are red,
 Violets are blue,
 [Your beautiful poem will go here]
 Forever true.</p>
-            
-            <button class="edit-button" id="editButton">Edit Poem</button>
-            <textarea id="poemEditor"></textarea>
-            <button class="edit-button save-button" id="saveButton">Save Poem</button>
+                
+                <textarea id="poemEditor"></textarea>
+                <button class="save-button" id="saveButton">Save Poem</button>
+            </div>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Creating floating hearts in the background
-            createFloatingHearts();
+            // Creating floating elements in the background
+            createFloatingElements();
             
             // Button click sequence handling
             const revealButton = document.getElementById('revealButton');
+            const buttonContent = revealButton.querySelector('.heart-button-content');
+            const currentMessage = document.getElementById('currentMessage');
             const poemContainer = document.getElementById('poemContainer');
             const poemText = document.getElementById('poemText');
-            const editButton = document.getElementById('editButton');
             const poemEditor = document.getElementById('poemEditor');
             const saveButton = document.getElementById('saveButton');
+            const card = document.querySelector('.card');
             
             let clickCount = 0;
             
@@ -238,11 +497,13 @@ Forever true.</p>
                 
                 switch(clickCount) {
                     case 1:
-                        revealButton.textContent = "Are you certain?";
+                        currentMessage.textContent = "Are you certain?";
+                        buttonContent.textContent = "Yes";
                         animateButton();
                         break;
                     case 2:
-                        revealButton.textContent = "No turning back now...";
+                        currentMessage.textContent = "No turning back now...";
+                        buttonContent.textContent = "Reveal";
                         animateButton();
                         break;
                     case 3:
@@ -260,71 +521,210 @@ Forever true.</p>
             
             function revealPoem() {
                 revealButton.style.display = 'none';
+                currentMessage.style.display = 'none';
                 poemContainer.style.display = 'block';
-                createMoreHearts();
+                createMoreElements();
+                
+                // Make the card pulse more subtly
+                card.classList.remove('pulse-animation');
+                setTimeout(() => {
+                    card.classList.add('pulse-animation');
+                }, 100);
+                
+                // Setup hidden editing functionality (can be triggered by double-clicking the poem)
+                poemText.addEventListener('dblclick', function() {
+                    poemEditor.value = poemText.textContent;
+                    poemEditor.style.display = 'block';
+                    saveButton.style.display = 'inline-block';
+                    poemText.style.display = 'none';
+                });
+                
+                saveButton.addEventListener('click', function() {
+                    poemText.textContent = poemEditor.value;
+                    poemEditor.style.display = 'none';
+                    saveButton.style.display = 'none';
+                    poemText.style.display = 'block';
+                });
             }
             
-            // Edit poem functionality
-            editButton.addEventListener('click', function() {
-                poemEditor.value = poemText.textContent;
-                poemEditor.style.display = 'block';
-                saveButton.style.display = 'inline-block';
-                poemText.style.display = 'none';
-                editButton.style.display = 'none';
-            });
-            
-            saveButton.addEventListener('click', function() {
-                poemText.textContent = poemEditor.value;
-                poemEditor.style.display = 'none';
-                saveButton.style.display = 'none';
-                poemText.style.display = 'block';
-                editButton.style.display = 'inline-block';
-            });
-            
-            // Create floating hearts in the background
-            function createFloatingHearts() {
-                const heartContainer = document.getElementById('heartContainer');
+            // Create floating elements in the background
+            function createFloatingElements() {
+                const elementsContainer = document.getElementById('elementsContainer');
                 const heartSymbols = ['❤', '💕', '💗', '💓', '💘'];
+                const flowerSymbols = ['🌸', '🌹', '💮', '🌺', '🌷'];
+                const sparkleSymbols = ['✨', '💫', '⭐', '🌟', '✧'];
+                const butterflySymbols = ['🦋', '🦋', '🦋'];
+                const cloudSymbols = ['☁️', '☁️', '☁️'];
                 
-                for (let i = 0; i < 20; i++) {
-                    const heart = document.createElement('div');
-                    heart.classList.add('heart');
-                    heart.innerHTML = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
-                    heart.style.left = Math.random() * 100 + 'vw';
-                    heart.style.opacity = Math.random() * 0.7;
-                    heart.style.fontSize = Math.random() * 1.5 + 1 + 'rem';
-                    
-                    // Random animation duration
-                    const duration = 15 + Math.random() * 15;
-                    heart.style.animation = `float ${duration}s linear infinite`;
-                    
-                    // Random start position in the animation
-                    heart.style.animationDelay = -Math.random() * duration + 's';
-                    
-                    heartContainer.appendChild(heart);
-                }
-            }
-            
-            function createMoreHearts() {
-                const heartContainer = document.getElementById('heartContainer');
-                const heartSymbols = ['❤', '💕', '💗', '💓', '💘'];
-                
+                // Add hearts
                 for (let i = 0; i < 15; i++) {
                     const heart = document.createElement('div');
                     heart.classList.add('heart');
                     heart.innerHTML = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
                     heart.style.left = Math.random() * 100 + 'vw';
-                    heart.style.opacity = Math.random() * 0.7;
-                    heart.style.fontSize = Math.random() * 2 + 1 + 'rem';
+                    heart.style.opacity = (Math.random() * 0.5) + 0.2;
+                    heart.style.fontSize = Math.random() * 1.2 + 1 + 'rem';
                     
                     // Random animation duration
-                    const duration = 10 + Math.random() * 10;
+                    const duration = 15 + Math.random() * 10;
                     heart.style.animation = `float ${duration}s linear infinite`;
                     
                     // Random start position in the animation
                     heart.style.animationDelay = -Math.random() * duration + 's';
                     
-                    heartContainer.appendChild(heart);
+                    elementsContainer.appendChild(heart);
+                }
+                
+                // Add flowers
+                for (let i = 0; i < 10; i++) {
+                    const flower = document.createElement('div');
+                    flower.classList.add('flower');
+                    flower.innerHTML = flowerSymbols[Math.floor(Math.random() * flowerSymbols.length)];
+                    flower.style.left = Math.random() * 100 + 'vw';
+                    flower.style.opacity = (Math.random() * 0.5) + 0.2;
+                    flower.style.fontSize = Math.random() * 1 + 0.8 + 'rem';
+                    
+                    // Random animation duration
+                    const duration = 18 + Math.random() * 12;
+                    flower.style.animation = `spin-float ${duration}s linear infinite`;
+                    
+                    // Random start position in the animation
+                    flower.style.animationDelay = -Math.random() * duration + 's';
+                    
+                    elementsContainer.appendChild(flower);
+                }
+                
+                // Add sparkles
+                for (let i = 0; i < 15; i++) {
+                    const sparkle = document.createElement('div');
+                    sparkle.classList.add('sparkle');
+                    sparkle.innerHTML = sparkleSymbols[Math.floor(Math.random() * sparkleSymbols.length)];
+                    sparkle.style.left = Math.random() * 100 + 'vw';
+                    sparkle.style.top = Math.random() * 100 + 'vh';
+                    sparkle.style.fontSize = Math.random() * 0.8 + 0.5 + 'rem';
+                    
+                    // Random animation duration
+                    const duration = 3 + Math.random() * 5;
+                    sparkle.style.animation = `twinkle ${duration}s ease-in-out infinite`;
+                    
+                    // Random start position in the animation
+                    sparkle.style.animationDelay = -Math.random() * duration + 's';
+                    
+                    elementsContainer.appendChild(sparkle);
+                }
+                
+                // Add butterflies
+                for (let i = 0; i < 6; i++) {
+                    const butterfly = document.createElement('div');
+                    butterfly.classList.add('butterfly');
+                    butterfly.innerHTML = butterflySymbols[Math.floor(Math.random() * butterflySymbols.length)];
+                    butterfly.style.left = Math.random() * 100 + 'vw';
+                    butterfly.style.opacity = (Math.random() * 0.6) + 0.3;
+                    butterfly.style.fontSize = Math.random() * 1 + 0.8 + 'rem';
+                    
+                    // Random animation duration
+                    const duration = 20 + Math.random() * 15;
+                    butterfly.style.animation = `butterfly-float ${duration}s ease-in-out infinite`;
+                    
+                    // Random start position in the animation
+                    butterfly.style.animationDelay = -Math.random() * duration + 's';
+                    
+                    elementsContainer.appendChild(butterfly);
+                }
+                
+                // Add clouds
+                for (let i = 0; i < 4; i++) {
+                    const cloud = document.createElement('div');
+                    cloud.classList.add('cloud');
+                    cloud.innerHTML = cloudSymbols[Math.floor(Math.random() * cloudSymbols.length)];
+                    cloud.style.top = (Math.random() * 30) + 'vh';
+                    cloud.style.opacity = (Math.random() * 0.4) + 0.2;
+                    cloud.style.fontSize = Math.random() * 1.5 + 1.5 + 'rem';
+                    
+                    // Random animation duration
+                    const duration = 60 + Math.random() * 40;
+                    cloud.style.animation = `cloud-float ${duration}s linear infinite`;
+                    
+                    // Random start position in the animation
+                    cloud.style.animationDelay = -Math.random() * duration + 's';
+                    
+                    elementsContainer.appendChild(cloud);
+                }
+            }
+            
+            function createMoreElements() {
+                const elementsContainer = document.getElementById('elementsContainer');
+                const heartSymbols = ['❤', '💕', '💗', '💓', '💘'];
+                const flowerSymbols = ['🌸', '🌹', '💮', '🌺', '🌷'];
+                const sparkleSymbols = ['✨', '💫', '⭐', '🌟', '✧'];
+                const butterflySymbols = ['🦋', '🦋', '🦋'];
+                
+                // Add more decorative elements when poem is revealed
+                
+                // More hearts
+                for (let i = 0; i < 10; i++) {
+                    const heart = document.createElement('div');
+                    heart.classList.add('heart');
+                    heart.innerHTML = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.opacity = (Math.random() * 0.5) + 0.2;
+                    heart.style.fontSize = Math.random() * 1.5 + 1 + 'rem';
+                    
+                    // Random animation duration
+                    const duration = 12 + Math.random() * 8;
+                    heart.style.animation = `float ${duration}s linear infinite`;
+                    
+                    // Random start position in the animation
+                    heart.style.animationDelay = -Math.random() * duration + 's';
+                    
+                    elementsContainer.appendChild(heart);
+                }
+                
+                // More flowers and sparkles
+                for (let i = 0; i < 8; i++) {
+                    // Add flowers
+                    const flower = document.createElement('div');
+                    flower.classList.add('flower');
+                    flower.innerHTML = flowerSymbols[Math.floor(Math.random() * flowerSymbols.length)];
+                    flower.style.left = Math.random() * 100 + 'vw';
+                    flower.style.opacity = (Math.random() * 0.5) + 0.2;
+                    flower.style.fontSize = Math.random() * 1 + 0.8 + 'rem';
+                    
+                    const flowerDuration = 15 + Math.random() * 10;
+                    flower.style.animation = `spin-float ${flowerDuration}s linear infinite`;
+                    flower.style.animationDelay = -Math.random() * flowerDuration + 's';
+                    
+                    elementsContainer.appendChild(flower);
+                    
+                    // Add sparkles
+                    const sparkle = document.createElement('div');
+                    sparkle.classList.add('sparkle');
+                    sparkle.innerHTML = sparkleSymbols[Math.floor(Math.random() * sparkleSymbols.length)];
+                    sparkle.style.left = Math.random() * 100 + 'vw';
+                    sparkle.style.top = Math.random() * 100 + 'vh';
+                    sparkle.style.fontSize = Math.random() * 0.8 + 0.6 + 'rem';
+                    
+                    const sparkleDuration = 3 + Math.random() * 5;
+                    sparkle.style.animation = `twinkle ${sparkleDuration}s ease-in-out infinite`;
+                    sparkle.style.animationDelay = -Math.random() * sparkleDuration + 's';
+                    
+                    elementsContainer.appendChild(sparkle);
+                }
+                
+                // More butterflies
+                for (let i = 0; i < 8; i++) {
+                    const butterfly = document.createElement('div');
+                    butterfly.classList.add('butterfly');
+                    butterfly.innerHTML = butterflySymbols[Math.floor(Math.random() * butterflySymbols.length)];
+                    butterfly.style.left = Math.random() * 100 + 'vw';
+                    butterfly.style.opacity = (Math.random() * 0.6) + 0.3;
+                    butterfly.style.fontSize = Math.random() * 1 + 0.8 + 'rem';
+                    
+                    const butterflyDuration = 20 + Math.random() * 15;
+                    butterfly.style.animation = `butterfly-float ${butterflyDuration}s ease-in-out infinite`;
+                    butterfly.style.animationDelay = -Math.random() * butterflyDuration + 's';
+                    
+                    elementsContainer.appendChild(butterfly);
                 }
             }
         });
